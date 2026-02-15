@@ -61,7 +61,9 @@ The Adaptive Autism Support System is an intelligent, continuously learning supp
 
 ### Requirement 2: Extension 1 - Behavioral Signal Capture
 
-**User Story:** As an autistic user experiencing cognitive friction, I want the system to observe my interaction patterns, so that it can detect when I'm confused or overwhelmed.
+**User Story:** As an autistic user experiencing cognitive friction, I want the system to observe my interaction patterns and adapt the web page interface, so that it becomes more comfortable and explainable when I'm confused or overwhelmed.
+
+**Note:** Extension 1 is responsible for ALL web page UI/UX modifications. Extension 3 handles only video/audio media content.
 
 #### Acceptance Criteria
 
@@ -101,9 +103,11 @@ The Adaptive Autism Support System is an intelligent, continuously learning supp
 6. THE Backend SHALL periodically generate updated model weights and make them available via S3
 7. THE Personal_Cognitive_Adaptation_Model SHALL treat initial profile as starting hypothesis, not fixed truth
 
-### Requirement 5: Extension 1 - Real-Time UI Adaptation
+### Requirement 5: Extension 1 - Real-Time Web Page UI Adaptation
 
-**User Story:** As an autistic user experiencing cognitive overload, I want the interface to automatically simplify, so that I can complete my task without becoming overwhelmed.
+**User Story:** As an autistic user experiencing cognitive overload, I want the web page interface to automatically simplify and become more explainable, so that I can complete my task without becoming overwhelmed.
+
+**Note:** This extension handles ALL web page UX modifications including layout, text, navigation, forms, and visual design.
 
 #### Acceptance Criteria
 
@@ -114,6 +118,10 @@ The Adaptive Autism Support System is an intelligent, continuously learning supp
 5. THE Extension_1 SHALL apply interventions proportionally to detected cognitive load severity
 6. WHEN user manually reverses an intervention, THE Extension_1 SHALL record the reversal and adjust future intervention thresholds
 7. THE Extension_1 SHALL provide a toggle to temporarily disable all adaptations
+8. WHEN adaptations are applied, THE Extension_1 SHALL show explainability tooltips describing what changed and why
+9. THE Extension_1 SHALL adjust spacing, font sizes, and contrast to improve readability when cognitive load is high
+10. WHEN complex forms are detected, THE Extension_1 SHALL break them into manageable steps with inline help text
+11. THE Extension_1 SHALL NOT modify video/audio player content (handled by Extension 3)
 
 ### Requirement 6: Extension 2 - Live Meeting Caption Processing
 
@@ -185,9 +193,11 @@ The Adaptive Autism Support System is an intelligent, continuously learning supp
 6. WHEN user requests, THE Extension_2 SHALL export summary as markdown or plain text
 7. THE Extension_2 SHALL store summaries locally with meeting metadata (date, platform, participants count)
 
-### Requirement 11: Extension 3 - Visual Sensory Feature Extraction
+### Requirement 11: Extension 3 - Visual Sensory Feature Extraction (Video Content Only)
 
-**User Story:** As an autistic user sensitive to visual stimuli, I want the system to detect problematic visual patterns, so that it can protect me from sensory overload.
+**User Story:** As an autistic user sensitive to visual stimuli in videos, I want the system to detect problematic visual patterns in video content, so that it can protect me from sensory overload.
+
+**Note:** Extension 3 focuses ONLY on video/audio media content. It does NOT modify general web page layouts or UI elements (handled by Extension 1).
 
 #### Acceptance Criteria
 
@@ -198,6 +208,7 @@ The Adaptive Autism Support System is an intelligent, continuously learning supp
 5. WHEN analyzing frames, THE Extension_3 SHALL compute motion turbulence using optical flow magnitude and direction variance
 6. THE Extension_3 SHALL extract visual features within 50ms per frame to maintain real-time performance
 7. THE Extension_3 SHALL support HTML5 video, YouTube, Vimeo, Netflix, and embedded video players
+8. THE Extension_3 SHALL NOT analyze or modify web page layouts, navigation, or general UI elements
 
 ### Requirement 12: Extension 3 - Audio Sensory Feature Extraction
 
@@ -227,19 +238,23 @@ The Adaptive Autism Support System is an intelligent, continuously learning supp
 6. WHEN model weights are updated, THE Extension_3 SHALL download new weights from S3 and reload the model
 7. THE Sensory_Stress_Model SHALL incorporate user-specific sensory thresholds from user profile
 
-### Requirement 14: Extension 3 - Proportional Sensory Interventions
+### Requirement 14: Extension 3 - Proportional Sensory Interventions (Media Content Only)
 
-**User Story:** As an autistic user experiencing sensory overload, I want automatic adjustments to reduce overwhelming stimuli, so that I can continue engaging with content comfortably.
+**User Story:** As an autistic user experiencing sensory overload from video/audio content, I want automatic adjustments to reduce overwhelming stimuli in the media, so that I can continue engaging with content comfortably.
+
+**Note:** These interventions apply ONLY to video/audio elements, not to web page UI.
 
 #### Acceptance Criteria
 
 1. WHEN overload probability exceeds 0.6, THE Extension_3 SHALL apply dimming by reducing video brightness proportionally (10-40% reduction)
-2. WHEN contrast oscillation exceeds threshold, THE Extension_3 SHALL apply contrast softening by stabilizing contrast ratio
-3. WHEN flash frequency exceeds 3 flashes per second, THE Extension_3 SHALL apply flash damping by smoothing brightness transitions
-4. WHEN motion turbulence exceeds threshold, THE Extension_3 SHALL apply motion smoothing by reducing frame rate or applying motion blur
+2. WHEN contrast oscillation exceeds threshold, THE Extension_3 SHALL apply contrast softening by stabilizing contrast ratio on video element
+3. WHEN flash frequency exceeds 3 flashes per second, THE Extension_3 SHALL apply flash damping by smoothing brightness transitions in video
+4. WHEN motion turbulence exceeds threshold, THE Extension_3 SHALL apply motion smoothing by reducing frame rate or applying motion blur to video
 5. WHEN audio dynamic spikes exceed threshold, THE Extension_3 SHALL apply audio compression by reducing dynamic range
 6. THE Extension_3 SHALL scale intervention intensity proportionally to overload probability (higher probability = stronger intervention)
 7. WHEN user manually adjusts intervention strength, THE Extension_3 SHALL record the adjustment and update sensitivity curves
+8. THE Extension_3 SHALL add a sensory control panel to video player UI for manual adjustments
+9. THE Extension_3 SHALL NOT modify web page layouts, text content, or navigation elements (handled by Extension 1)
 
 ### Requirement 15: Extension 3 - Continuous Sensory Adaptation Learning
 
